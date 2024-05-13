@@ -3,7 +3,11 @@
 # 記得先安裝curl!!!!
 
 安裝方式：
-對於Ubuntu或Debian： sudo apt-get install libcurl4-openssl-dev   
+對於Ubuntu或Debian： 
+sudo apt-get install libcurl4-openssl-dev  
+sudo apt update
+sudo apt upgrade
+sudo apt install curl 
 對於Mac： brew install curl 
 
 # Makefile中記得-lcurl！！！！！
