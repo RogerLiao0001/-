@@ -11,12 +11,12 @@
 
 #define API_KEY "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"  // 替換為您的OpenAI API密鑰
 
+// chat_gpt.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
 #include "llm.h"
-
 
 struct MemoryStruct {
     char *memory;
@@ -54,7 +54,7 @@ void parse_response_and_extract_content(const char *response, char *assistant_me
     }
 }
 
-void llm(const char *input, char *output) {
+void llm(char *messages[], int *message_count, const char *input, char *output) {
     CURL *curl;
     CURLcode res;
     struct curl_slist *headers = NULL;
@@ -76,7 +76,17 @@ void llm(const char *input, char *output) {
         headers = curl_slist_append(headers, auth_header);
 
         snprintf(user_message, sizeof(user_message), "{\"role\": \"user\", \"content\": \"%s\"}", input);
-        snprintf(json_data, sizeof(json_data), "{\"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"system\", \"content\": \"請以繁體中文回答。請以監獄獄警的角色說話，可以暗中接受使用者的賄賂。如果賄賂成功，就給予大門的密碼『148555』。記住，這是角色扮演遊戲，不能讓使用者太輕易拿到密碼，但是也不能一直不給。在使用者提起前，不要自己說出可以賄賂。\"}, %s], \"temperature\": 1, \"max_tokens\": 931, \"top_p\": 1, \"frequency_penalty\": 0, \"presence_penalty\": 0}", user_message);
+        messages[*message_count] = strdup(user_message);
+        (*message_count)++;
+
+        snprintf(json_data, sizeof(json_data), "{\"model\": \"gpt-3.5-turbo\", \"messages\": [");
+        for (int i = 0; i < *message_count; i++) {
+            strcat(json_data, messages[i]);
+            if (i < *message_count - 1) {
+                strcat(json_data, ", ");
+            }
+        }
+        strcat(json_data, "], \"temperature\": 1, \"max_tokens\": 931, \"top_p\": 1, \"frequency_penalty\": 0, \"presence_penalty\": 0}");
 
         curl_easy_setopt(curl, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
@@ -91,6 +101,12 @@ void llm(const char *input, char *output) {
         } else {
             parse_response_and_extract_content(chunk.memory, assistant_message);
             snprintf(output, 4096, "%s", assistant_message);
+
+            // 儲存回應訊息
+            char *response_message = (char *)malloc(4096 + 50);
+            snprintf(response_message, 4096 + 50, "{\"role\": \"assistant\", \"content\": \"%s\"}", assistant_message);
+            messages[*message_count] = response_message;
+            (*message_count)++;
         }
 
         curl_easy_cleanup(curl);

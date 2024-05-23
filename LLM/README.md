@@ -46,8 +46,8 @@ void llm(const char *input, char *output);
 使用以下命令編譯並執行程式：
 
 ```sh
-gcc -o chat_gpt main.c llm.c -lcurl
-./chat_gpt
+gcc -o llm main.c llm.c -lcurl
+./llm
 ```
 
 

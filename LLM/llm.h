@@ -4,4 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
-void llm(const char *input, char *output);
+
+void llm(char *messages[], int *message_count, const char *input, char *output) ;
+
