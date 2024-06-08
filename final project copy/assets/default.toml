@@ -1,0 +1,46 @@
+[game_default]
+#起始畫面
+open_bg="assets/image/default/open_bg.jpg"
+open_title="assets/image/default/open_title.png"
+#對話框
+chatbar="assets/image/default/chatbar.png"
+#背包 bg背景 1背包圖示 2互動背包圖示
+backpack_bg="assets/image/default/backpack_bg.png"
+backpack_1="assets/image/default/backpack_1.png"
+backpack_2="assets/image/default/backpack_2.png"
+#儲存 bg背景 1儲存圖示 2互動儲存圖示
+save_bg="assets/image/default/save_bg.jpg"
+save_1="assets/image/default/save_1.png"
+save_2="assets/image/default/save_2.png"
+#隱藏對話 1隱藏圖示 2互動隱藏圖示
+hide_1="assets/image/default/hide_1.png"
+hide_2="assets/image/default/hide_2.png"
+#載入 bg背景 1儲存圖示 2互動儲存圖示
+load_bg="assets/image/default/save_bg.jpg"
+load_1="assets/image/default/save_1.png"
+load_2="assets/image/default/save_2.png"
+#設定  0背景 1設定圖示 2互動設定圖示
+settings_bg="assets/image/default/save_bg.jpg"
+settings_1="assets/image/default/setting_1.png"
+settings_2="assets/image/default/setting_2.png"
+#關閉 1關閉圖示 2互動關閉圖示
+close_1="assets/image/default/close_1.png"
+close_2="assets/image/default/close_2.png"
+#預設按鈕 1按鈕圖 2互動邊框 3邊框
+default_button_1="assets/image/default/optionbar1.png"
+default_button_2="assets/image/default/optionbar2.png"
+default_button_3="assets/image/default/optionbar3.png"
+#起始按鈕 1按鈕圖 2互動邊框 3邊框
+open_button_1="assets/image/default/optionbar1.png"
+open_button_2="assets/image/default/optionbar2.png"
+open_button_3="assets/image/default/optionbar3.png"
+#背包按鈕 1按鈕圖 2互動邊框 3邊框
+backpack_button_1="assets/image/default/optionbar1.png"
+backpack_button_2="assets/image/default/optionbar2.png"
+backpack_button_3="assets/image/default/optionbar3.png"
+#儲存按鈕 1按鈕圖 2互動邊框 3邊框
+save_button_1="assets/image/default/optionbar1.png"
+save_button_2="assets/image/default/optionbar2.png"
+save_button_3="assets/image/default/optionbar3.png"
+#按按鈕音效
+button_sound="assets/sound/button.wav"
