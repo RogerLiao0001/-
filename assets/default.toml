@@ -1,0 +1,44 @@
+[game_default]
+#遊戲名稱
+game_name="逃離惡魔島"
+#起始畫面 bg背景 music音樂
+open_bg="assets/image/default/open_bg.png"
+open_music="assets/sound/default/chillin.mp3"
+#對話框
+chatbar="assets/image/default/chatbar.png"
+#背包 bg背包界面的背景 1背包圖標 2互動背包圖標
+backpack_bg="assets/image/default/bg.jpg"
+backpack_1="assets/image/default/backpack_1.png"
+backpack_2="assets/image/default/backpack_2.png"
+#儲存 bg儲存界面的背景 1儲存圖標 2互動儲存圖標
+save_bg="assets/image/default/bg.jpg"
+save_1="assets/image/default/save_1.png"
+save_2="assets/image/default/save_2.png"
+#設定  bg設定界面的背景 1設定圖標 2互動設定圖標
+settings_bg="assets/image/default/bg.jpg"
+settings_1="assets/image/default/setting_1.png"
+settings_2="assets/image/default/setting_2.png"
+#隱藏對話 1隱藏圖標 2互動隱藏圖標
+hide_1="assets/image/default/hide_1.png"
+hide_2="assets/image/default/hide_2.png"
+#載入 bg載入界面的背景
+load_bg="assets/image/default/bg.jpg"
+#關閉 1關閉圖標 2互動關閉圖標
+close_1="assets/image/default/close_1.png"
+close_2="assets/image/default/close_2.png"
+#基本按鈕 1按鈕圖標 2按鈕互動邊框
+default_button_1="assets/image/default/option1.png"
+default_button_2="assets/image/default/option2.png"
+#選項按鈕 1按鈕圖標 2按鈕互動邊框
+options_button_1="assets/image/default/optionbar1.png"
+options_button_2="assets/image/default/optionbar2.png"
+#背包按鈕 1按鈕圖標 2按鈕互動邊框
+backpack_button_1="assets/image/default/option1.png"
+backpack_button_2="assets/image/default/option2.png"
+#儲存和載入按鈕 1按鈕圖標 2按鈕互動邊框
+save_button_1="assets/image/default/optionbar1.png"
+save_button_2="assets/image/default/optionbar2.png"
+#遺失的圖片
+missing_image="assets/image/default/missing.png"
+#按按鈕音效
+button_sound="assets/sound/default/button.wav"
