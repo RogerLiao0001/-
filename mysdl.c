@@ -1,4 +1,3 @@
-//test
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -154,6 +153,10 @@ int main(int32_t argc,char *argv[]){
 	int32_t dialogue_line_which=0;
 	//到text第幾個
 	int32_t text_line_which=1;
+	//到emote第幾個
+	int32_t emote_line_which=1;
+	//到character第幾個
+	int32_t ch_line_which=1;
 	//是不是對話的第一條 是1 不是0
 	int32_t first_dialogue_check=1;
 	//開始選項 是1 不是0
@@ -267,6 +270,8 @@ int main(int32_t argc,char *argv[]){
 			//把現在background存下來
 			init_str(now_scene_bg_str);
 			strncpy(now_scene_bg_str,now_scene_bg.u.s, 1000);
+			//漸入
+			fadein(now_scene_bg_str,&event);
 			}
 			else{
 			printf("現在場景沒有background\n");
@@ -310,18 +315,97 @@ int main(int32_t argc,char *argv[]){
 				if(dialogue_line.ok){
 					//抓角色
 					if(strncmp(key,"character",9)==0){
-					//printf("%s\n", now_character);
-					toml_table_t *now_character_table = toml_table_in(character_table, dialogue_line.u.s);
-					toml_datum_t now_character_tachie = toml_string_in(now_character_table, "tachie");
-					//把現在人物存下來
-					init_str(now_character_image_str);
-					strncpy(now_character_image_str,now_character_tachie.u.s, 1000);
-					//對話換下一條
-					dialogue_line_which++;
-					//不是在文字
-					text_catch=0;
-					//printf("%s\n", now_character_tachie.u.s);
+					//用來比對是不是現在要出現的character
+					int32_t key_ch_which=0;
+					//抓character第幾行
+					sscanf(key,"character%d",&key_ch_which);
+						if(key_ch_which==ch_line_which){
+						ch_line_which++;
+						//把現在人物存下來
+						init_str(now_character_str);
+						strncpy(now_character_str,dialogue_line.u.s, 1000);
+						//對話換下一條
+						dialogue_line_which++;
+						//不是在文字
+						text_catch=0;
+						character_catch=1;
+						}
+						else{
+						printf("角色順序有問題\n");
+						return 0;
+						}
 					}
+					//抓表情
+					else if(strncmp(key,"emote",5)==0){
+					//用來比對是不是現在要出現的emote
+					int32_t key_emote_which=0;
+					//抓emote第幾行
+					sscanf(key,"emote%d",&key_emote_which);
+						if(key_emote_which==emote_line_which){
+						emote_line_which++;
+							if(character_catch==1){
+							toml_table_t *now_character_table = toml_table_in(character_table,now_character_str);
+							toml_datum_t now_character_image;
+							int32_t catch_sucess=0;
+								//預設表情
+								if(strncmp(dialogue_line.u.s,"default",7)==0){
+								now_character_image = toml_string_in(now_character_table, "default");
+								catch_sucess=1;
+								}
+								//開心
+								else if(strncmp(dialogue_line.u.s,"happy",5)==0){
+								now_character_image = toml_string_in(now_character_table, "happy");
+								catch_sucess=1;
+								}
+								//害羞
+								else if(strncmp(dialogue_line.u.s,"shy",3)==0){
+								now_character_image = toml_string_in(now_character_table, "shy");
+								catch_sucess=1;
+								}
+								//悲傷
+								else if(strncmp(dialogue_line.u.s,"sad",3)==0){
+								now_character_image = toml_string_in(now_character_table, "sad");
+								catch_sucess=1;
+								}
+								//生氣
+								else if(strncmp(dialogue_line.u.s,"angry",5)==0){
+								now_character_image = toml_string_in(now_character_table, "angry");
+								catch_sucess=1;
+								}
+								//清除
+								else if(strncmp(dialogue_line.u.s,"clear",5)==0){
+								init_str(now_character_image_str);
+								//對話換下一條
+								dialogue_line_which++;
+								//不是在文字
+								text_catch=0;
+								continue;
+								}
+								if(catch_sucess==1){
+								//把現在人物存下來
+								init_str(now_character_image_str);
+								strncpy(now_character_image_str,now_character_image.u.s, 1000);
+								//對話換下一條
+								dialogue_line_which++;
+								//不是在文字
+								text_catch=0;
+								}
+								else{
+								printf("toml格式錯誤，沒有抓到表情！\n");
+								return 0;
+								}
+							}
+							else{
+							printf("toml格式錯誤，沒有抓到角色！\n");
+							return 0;
+							}
+						}
+						else{
+						printf("表情順序有問題\n");
+						return 0;
+						}
+					}
+					
 					//抓文字
 					else if(strncmp(key,"text",4)==0){
 					/*//清除特定畫面
@@ -355,6 +439,8 @@ int main(int32_t argc,char *argv[]){
 					character_catch=0;
 					text_catch=0;
 					text_line_which=1;
+					emote_line_which=1;
+					ch_line_which=1;
 					text_stop=0;
 					dialogue_line_which=0;
 					first_dialogue_check=0;
@@ -379,6 +465,8 @@ int main(int32_t argc,char *argv[]){
 					character_catch=0;
 					text_catch=0;
 					text_line_which=1;
+					emote_line_which=1;
+					ch_line_which=1;
 					text_stop=0;
 					dialogue_line_which=0;
 					first_dialogue_check=1;
@@ -387,6 +475,8 @@ int main(int32_t argc,char *argv[]){
 					options_size=0;
 					//抓下一個事件的名稱
 					strncpy(now_event_str,dialogue_line.u.s, 1000);
+					//漸黑特效
+					fadeout(now_scene_bg_str,&event);
 					continue; 
 					}
 				}
@@ -405,7 +495,9 @@ int main(int32_t argc,char *argv[]){
 		}
 		
 		//渲染角色
+		if(strlen(now_character_image_str)!=0){
 		render_image_block(now_character_image_str,&character_block);
+		}
 		//顯示對話背景
 		if(text_catch==1 && chatbar.ok){
 		render_image_block(chatbar.u.s,&chatbar_block);
@@ -455,6 +547,8 @@ int main(int32_t argc,char *argv[]){
 					character_catch=0;
 					text_catch=0;
 					text_line_which=1;
+					emote_line_which=1;
+					ch_line_which=1;
 					text_stop=0;
 					dialogue_line_which=0;
 					first_dialogue_check=0;
@@ -467,6 +561,8 @@ int main(int32_t argc,char *argv[]){
 					}
 					//如果是event
 					else if(now_options_event.ok){
+					//漸黑特效
+					fadeout(now_scene_bg_str,&event);
 					init_str(now_event_str);
 					init_str(now_scene_bg_str);
 					init_str(now_dialogue_str);
@@ -478,6 +574,8 @@ int main(int32_t argc,char *argv[]){
 					character_catch=0;
 					text_catch=0;
 					text_line_which=1;
+					emote_line_which=1;
+					ch_line_which=1;
 					text_stop=0;
 					dialogue_line_which=0;
 					first_dialogue_check=1;
@@ -486,8 +584,7 @@ int main(int32_t argc,char *argv[]){
 					options_size=0;
 					//抓下一個事件的名稱
 					strncpy(now_event_str,now_options_event.u.s, 1000);
-					//漸黑特效
-					//turn_black();
+					continue;
 					}
 					else{
 					printf("資料有誤！\n");

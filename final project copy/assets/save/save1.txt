@@ -1,0 +1,12 @@
+now_event_str=start
+now_dialogue_str=happy
+now_character_image_str=assets/sean_tachie.jpg
+now_event_name_str=第一幕
+now_scene_name_str=school
+dialogue_line_which=2
+text_line_which=1
+emote_line_which=2
+ch_line_which=2
+character=sean,like=10
+character=roger,like=100
+character=amy,like=250

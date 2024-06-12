@@ -1,0 +1,3 @@
+[server]
+    host = "aaa.com"
+    port = [ 8080, 8181, 8282 ]
