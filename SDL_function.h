@@ -36,7 +36,7 @@ void write_save(char now_event_str[200],char now_dialogue_str[200],char now_char
 int32_t check_save(struct Character *character_list,int32_t num_character,int32_t save_which);
 
 //存檔讀取
-void read_save(char now_event_str[200],char now_dialogue_str[200],char now_character_str[200],char now_character_image_str[200],char now_character_avatar_str[200],char now_talk_str[200],char now_text_str[200],char now_event_name_str[200],char now_scene_name_str[200],int32_t *dialogue_line_which,int32_t *text_line_which,int32_t *emote_line_which,int32_t *ch_line_which,int32_t *nowtalk_line_which,int32_t *sound_line_which,struct Character *character_list,int32_t num_character,char **backpack,int32_t save_which);
+void read_save(char now_event_str[200],char now_dialogue_str[200],char now_character_str[200],char now_character_image_str[200],char now_character_avatar_str[200],char now_talk_str[200],char now_text_str[200],char now_event_name_str[200],char now_scene_name_str[200],int32_t *dialogue_line_which,int32_t *text_line_which,int32_t *emote_line_which,int32_t *ch_line_which,int32_t *nowtalk_line_which,int32_t *sound_line_which,struct Character *character_list,int32_t num_character,int32_t *start_option,char **backpack,int32_t save_which);
 
 //渲染存檔文字function
 void show_save_info(button_rect *save_data_block,struct Character *character_list,int32_t num_character,int32_t save_which);

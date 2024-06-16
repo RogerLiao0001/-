@@ -173,7 +173,7 @@ int32_t check_save(struct Character *character_list,int32_t num_character,int32_
 }
 
 //存檔讀取
-void read_save(char now_event_str[200],char now_dialogue_str[200],char now_character_str[200],char now_character_image_str[200],char now_character_avatar_str[200],char now_talk_str[200],char now_text_str[200],char now_event_name_str[200],char now_scene_name_str[200],int32_t *dialogue_line_which,int32_t *text_line_which,int32_t *emote_line_which,int32_t *ch_line_which,int32_t *nowtalk_line_which,int32_t *sound_line_which,struct Character *character_list,int32_t num_character,char **backpack,int32_t save_which){
+void read_save(char now_event_str[200],char now_dialogue_str[200],char now_character_str[200],char now_character_image_str[200],char now_character_avatar_str[200],char now_talk_str[200],char now_text_str[200],char now_event_name_str[200],char now_scene_name_str[200],int32_t *dialogue_line_which,int32_t *text_line_which,int32_t *emote_line_which,int32_t *ch_line_which,int32_t *nowtalk_line_which,int32_t *sound_line_which,struct Character *character_list,int32_t num_character,int32_t *start_option,char **backpack,int32_t save_which){
 	char filename[100]={0};
 	snprintf(filename,100,"assets/save/save%d.txt",save_which+1);
 	FILE *pfile=NULL;
@@ -188,6 +188,7 @@ void read_save(char now_event_str[200],char now_dialogue_str[200],char now_chara
 	char ch_line_which_str[200]={0};
 	char nowtalk_line_which_str[200]={0};
 	char sound_line_which_str[200]={0};
+	char start_option_str[200]={0};
 	char like_str[200]={0};
 	while(feof(pfile)==0){
 	char character_list_check[200]={0};
@@ -218,6 +219,7 @@ void read_save(char now_event_str[200],char now_dialogue_str[200],char now_chara
 	sscanf(line,"ch_line_which=%s",ch_line_which_str);
 	sscanf(line,"nowtalk_line_which=%s",nowtalk_line_which_str);
 	sscanf(line,"sound_line_which=%s",sound_line_which_str);
+	sscanf(line,"start_option=%s",start_option_str);
 		if(sscanf(line,"character=%[^,],like=%s",character_list_check,like_str)==2){
 			for(int32_t i=0;i<num_character;i++){
 				if(strcmp(character_list_check,character_list[i].name)==0){
@@ -241,7 +243,12 @@ void read_save(char now_event_str[200],char now_dialogue_str[200],char now_chara
 	*ch_line_which=atoi(ch_line_which_str);
 	*nowtalk_line_which=atoi(nowtalk_line_which_str);
 	*sound_line_which=atoi(sound_line_which_str);
+	*start_option=atoi(start_option_str);
 	
+	if(*start_option==1){
+	(*text_line_which)++;
+	}
+
 	
 	fclose(pfile);	
 }

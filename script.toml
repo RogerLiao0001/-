@@ -5,7 +5,7 @@ describe="它是超級帥哥"
 
 [character.frank]
 name="弗蘭克"
-describe="囚犯/玩家"
+describe="你叫做弗蘭克，因為太帥氣被關入獄"
 like=10
 tachie_nervous="assets/image/character/frank/tachie/tachie_frank_nervous.png"
 tachie_default="assets/image/character/frank/tachie/tachie_frank_default.png"
@@ -16,13 +16,14 @@ avatar_happy="assets/image/character/frank/avatar/avatar_frank_happy.png"
 
 [character.john]
 name="約翰"
-describe="囚犯2"
+describe="他是約翰，因為偷竊而被捕入獄"
 tachie_default="assets/image/character/john/tachie/tachie_john_default.png"
 avatar_default="assets/image/character/john/avatar/avatar_john_default.png"
 
 [character.guard]
 name="獄警"
-describe="獄警"
+describe="他是獄警"
+like=0
 tachie_default="assets/image/character/guard/tachie/tachie_guard_default.png"
 tachie_angry="assets/image/character/guard/tachie/tachie_guard_angry.png"
 avatar_default="assets/image/character/guard/avatar/avatar_guard_default.png"
